@@ -62,13 +62,22 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                       right: 10,
                       child: InkWell(
                         onTap: () {
-                          Scaffold.of(context).showSnackBar(SnackBar(
-                              duration: Duration(milliseconds: 500),
-                              margin: EdgeInsets.all(10),
-                              elevation: 0,
-                              behavior: SnackBarBehavior.floating,
-                              backgroundColor: Colors.pinkAccent,
-                              content: Text("Camera Clicked")));
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Camera Clicked"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -250,21 +259,31 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: CupertinoButton(
-                  color: Colors.deepPurple,
-                  child: Text("submit"),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // TODO : do your tasks
+                color: Colors.deepPurple,
+                child: Text("submit"),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // TODO : do your tasks
 
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                          duration: Duration(milliseconds: 200),
-                          margin: EdgeInsets.all(10),
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.green,
-                          content: Text("Form is Valid")));
-                    }
-                  }),
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Form is Valid"),
+                          actions: [
+                            TextButton(
+                              child: Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
             )
           ])),
           SliverToBoxAdapter(
