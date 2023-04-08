@@ -16,6 +16,7 @@ class TodoService {
       if (_result.exception is LinkException) {
         return left(Failure("Network Error"));
       } else {
+        print(_result.exception!.graphqlErrors.first.message);
         return left(Failure(_result.exception!.graphqlErrors.first.message,
             message:
                 _result.exception!.graphqlErrors.first.extensions.toString()));
@@ -24,7 +25,7 @@ class TodoService {
       List<TodoModel> _data = (_result.data!['todos'] as List)
           .map((e) => TodoModel.fromMap(e))
           .toList();
-
+      print(_data);
       return right(_data);
     }
   }
